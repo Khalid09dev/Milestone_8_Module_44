@@ -1,7 +1,10 @@
+import { useState } from "react";
 import Link from "../Link/Link";
+import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai'
 
 const NavBar = () => {
 
+    const [open, setOpen] = useState(false)
     const routes = [
         {id: 1, path: '/', name: 'Home'},
         {id: 2, path: '/about', name: 'About'},
@@ -12,7 +15,13 @@ const NavBar = () => {
 
     return (
         <nav>
-                <ul className="md:flex gap-10">
+                <div className="md:hidden" onClick={() => setOpen(true)}>
+                    {
+                        open === true ? <AiOutlineClose></AiOutlineClose> : 'close'
+                    }
+                    <AiOutlineMenu className="text-xl md:hidden"></AiOutlineMenu>
+                </div>
+                <ul className={`md:flex absolute ${open ? 'top-16' : '-top-60'} bg-yellow-200 px-6 shadow-lg gap-10 md:static`}>
                     {
                     routes.map(route => <Link key={route.id} route={route}></Link>)
                     }
